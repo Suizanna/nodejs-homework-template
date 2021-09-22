@@ -1,18 +1,22 @@
 const getAllContacts = require("./getAllContacts");
 const updateContacts = require("./updateContacts");
 
-const updateContactById = async (id, data) => {
+const updateContactById = async (contactId, body) => {
   const contacts = await getAllContacts();
-  //не работает
-  // "message": "Product with id=undefined not found"
-  const idx = contacts.findIndex((contact) => contact.id === id);
-  if (idx === -1) {
+  const index = contacts.findIndex(
+    (contact) => String(contact.id) === String(contactId)
+  );
+
+  if (index === -1) {
     return null;
   }
-  const updateContact = { ...contacts[idx], ...data };
-  contacts[idx] = updateContact;
+
+  const updateContact = { ...contacts[index], ...body };
+  contacts[index] = updateContact;
 
   await updateContacts(contacts);
-  return updateContacts;
+  console.log(updateContact);
+  return updateContact;
 };
+
 module.exports = updateContactById;

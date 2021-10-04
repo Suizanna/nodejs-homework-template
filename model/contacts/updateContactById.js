@@ -10,12 +10,13 @@ const updateContactById = async (contactId, body) => {
   if (index === -1) {
     return null;
   }
-
+  //contacts[index] - старый контакт
+  //body - новый контакт
   const updateContact = { ...contacts[index], ...body };
-  contacts[index] = updateContact;
-
+  contacts[index] = updateContact; //этим обновляем контакт
   await updateContacts(contacts);
   console.log(updateContact);
+  // console.log(contacts); //здесь уже весь json с обновленным контактом
   return updateContact;
 };
 
